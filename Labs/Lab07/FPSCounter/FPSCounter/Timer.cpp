@@ -1,6 +1,6 @@
 /**********************************************************************************
 // Timer (Código Fonte)
-// 
+//
 // Criação:     02 Abr 2011
 // Atualização: 10 Ago 2021
 // Compilador:  Visual C++ 2019
@@ -37,21 +37,21 @@ void Timer::Start()
         //
         //      <--- elapsed ---> <--- stoped --->
         // ----|-----------------|----------------|----> time
-        //    start              end              now 
+        //    start              end              now
         //
-        
+
         // tempo transcorrida antes da parada
         llong elapsed = end.QuadPart - start.QuadPart;
-        
+
         // retoma contagem do tempo
         //
         //      <--- elapsed --->
         // ----|-----------------|-----------> time
         //    start              now
-        //                         
+        //
 
         // leva em conta tempo já transcorrido antes da parada
-        QueryPerformanceCounter(&start); 
+        QueryPerformanceCounter(&start);
         start.QuadPart -= elapsed;
 
         // retoma contagem normal
@@ -89,14 +89,14 @@ float Timer::Reset()
         //      <--- elapsed ---> <--- stoped --->
         // ----|-----------------|----------------|------> time
         //    start              end              start
-        //                       
+        //
 
         // pega tempo transcorrido antes da parada
         elapsed = end.QuadPart - start.QuadPart;
-        
+
         // reinicia contagem do tempo
-        QueryPerformanceCounter(&start); 
-        
+        QueryPerformanceCounter(&start);
+
         // contagem reativada
         stoped = false;
     }
@@ -106,7 +106,7 @@ float Timer::Reset()
         //
         //      <--- elapsed --->
         // ----|-----------------|------------> time
-        //    start              end     
+        //    start              end
         //                       start
 
         // finaliza contagem do tempo
@@ -120,7 +120,7 @@ float Timer::Reset()
     }
 
     // converte tempo para segundos
-    return float(elapsed / double(freq.QuadPart));    
+    return float(elapsed / double(freq.QuadPart));
 }
 
 // ------------------------------------------------------------------------------
@@ -143,9 +143,9 @@ float Timer::Elapsed()
     {
         // tempo transcorrido
         //
-        //      <--- elapsed ---> 
+        //      <--- elapsed --->
         // ----|-----------------|-----------> time
-        //    start              end               
+        //    start              end
         //
 
         // finaliza contagem do tempo

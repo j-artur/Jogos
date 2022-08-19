@@ -19,35 +19,35 @@
 
 // ---------------------------------------------------------------------------------
 
-#include "Game.h"                       // implementação do jogo
-#include "Window.h"                     // janela do jogo
-#include "Graphics.h"                   // hardware gráfico
-#include "Timer.h"                      // medidor de tempo
+#include "Game.h"     // implementação do jogo
+#include "Graphics.h" // hardware gráfico
+#include "Timer.h"    // medidor de tempo
+#include "Window.h"   // janela do jogo
 
 // ---------------------------------------------------------------------------------
 
 class Engine
 {
-private:
-    static Timer timer;                 // medidor de tempo
-    static bool paused;                 // estado do jogo
+  private:
+    static Timer timer; // medidor de tempo
+    static bool paused; // estado do jogo
 
-    float FrameTime();                  // calcula o tempo do quadro
-    int   Loop();                       // inicia execução do jogo
+    float FrameTime(); // calcula o tempo do quadro
+    int Loop();        // inicia execução do jogo
 
-public:
-    static Game     * game;             // jogo a ser executado
-    static Window   * window;           // janela do jogo
-    static Graphics * graphics;         // dispositivo gráfico
-    static float      frameTime;		// tempo do quadro atual
+  public:
+    static Game *game;         // jogo a ser executado
+    static Window *window;     // janela do jogo
+    static Graphics *graphics; // dispositivo gráfico
+    static float frameTime;    // tempo do quadro atual
 
-    Engine();                           // construtor
-    ~Engine();                          // destrutor
+    Engine();  // construtor
+    ~Engine(); // destrutor
 
-    int Start(Game* level);             // inicia a execução do jogo
-    
-    static void Pause();				// pausa o jogo
-    static void Resume();				// reinicia o jogo
+    int Start(Game *level); // inicia a execução do jogo
+
+    static void Pause();  // pausa o jogo
+    static void Resume(); // reinicia o jogo
 };
 
 // ---------------------------------------------------------------------------------

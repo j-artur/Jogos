@@ -1,6 +1,6 @@
 /**********************************************************************************
 // Types (Arquivo de Cabeçalho)
-// 
+//
 // Criação:		02 Abr 2011
 // Atualização:	04 Ago 2021
 // Compilador:	Visual C++ 2019
@@ -14,11 +14,11 @@
 #define _PROGJOGOS_TYPES_H_
 
 // nomes para tipos padrões da linguagem C++ usados na engine
-using uchar  = unsigned char;
+using uchar = unsigned char;
 using ushort = unsigned short;
-using ulong  = unsigned long;
-using llong  = long long;
+using ulong = unsigned long;
+using llong = long long;
 using ullong = unsigned long long;
-using uint   = unsigned int;
+using uint = unsigned int;
 
 #endif

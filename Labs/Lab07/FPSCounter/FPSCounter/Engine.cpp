@@ -15,25 +15,25 @@
 **********************************************************************************/
 
 #include "Engine.h"
-#include <windows.h>
 #include <sstream>
+#include <windows.h>
 using std::stringstream;
 
 // ------------------------------------------------------------------------------
 // Inicialização de variáveis estáticas da classe
 
-Game     * Engine::game      = nullptr;        // jogo em execução
-Window   * Engine::window    = nullptr;        // janela do jogo
-Graphics * Engine::graphics  = nullptr;        // dispositivo gráfico
-float      Engine::frameTime = 0.0f;           // tempo do quadro atual
-bool       Engine::paused    = false;          // estado do game loop
-Timer      Engine::timer;                      // medidor de tempo
+Game *Engine::game = nullptr;         // jogo em execução
+Window *Engine::window = nullptr;     // janela do jogo
+Graphics *Engine::graphics = nullptr; // dispositivo gráfico
+float Engine::frameTime = 0.0f;       // tempo do quadro atual
+bool Engine::paused = false;          // estado do game loop
+Timer Engine::timer;                  // medidor de tempo
 
 // -------------------------------------------------------------------------------
 
 Engine::Engine()
 {
-    window   = new Window();
+    window = new Window();
     graphics = new Graphics();
 }
 
@@ -48,7 +48,7 @@ Engine::~Engine()
 
 // -----------------------------------------------------------------------------
 
-int Engine::Start(Game* level)
+int Engine::Start(Game *level)
 {
     game = level;
 
@@ -105,7 +105,7 @@ int Engine::Loop()
     game->Init();
 
     // mensagens do Windows
-    MSG  msg = { 0 };
+    MSG msg = {0};
 
     // controle da tecla Pause (VK_PAUSE)
     bool pauseKeyCtrl = true;
@@ -140,7 +140,7 @@ int Engine::Loop()
             }
             else
             {
-                // registra novo pressionamento somente 
+                // registra novo pressionamento somente
                 // após liberação da tecla Pause
                 if (window->KeyUp(VK_PAUSE))
                     pauseKeyCtrl = true;
@@ -153,7 +153,7 @@ int Engine::Loop()
                 // calcula o tempo do quadro
                 frameTime = FrameTime();
 
-                // atualização do jogo 
+                // atualização do jogo
                 game->Update();
 
                 // limpa a tela para o próximo quadro
@@ -189,8 +189,8 @@ float Engine::FrameTime()
 {
     // ----- START DEBUG ----------
 #ifdef _DEBUG
-    static float totalTime = 0.0f;    // tempo total transcorrido 
-    static uint  frameCount = 0;    // contador de frames transcorridos
+    static float totalTime = 0.0f; // tempo total transcorrido
+    static uint frameCount = 0;    // contador de frames transcorridos
 #endif
     // ------ END DEBUG -----------
 
@@ -199,7 +199,7 @@ float Engine::FrameTime()
 
     // ----- START DEBUG ----------
 #ifdef _DEBUG
-    // tempo acumulado dos frames 
+    // tempo acumulado dos frames
     totalTime += frameTime;
 
     // incrementa contador de frames
@@ -208,13 +208,13 @@ float Engine::FrameTime()
     // a cada 1000ms (1 segundo) atualiza indicador de FPS na janela
     if (totalTime >= 1.0f)
     {
-        stringstream text;            // fluxo de texto para mensagens
-        text << std::fixed;            // sempre mostra a parte fracionária
-        text.precision(3);            // três casas depois da vírgula
+        stringstream text;  // fluxo de texto para mensagens
+        text << std::fixed; // sempre mostra a parte fracionária
+        text.precision(3);  // três casas depois da vírgula
 
         text << window->Title().c_str() << "    "
-            << "FPS: " << frameCount << "    "
-            << "Frame Time: " << frameTime * 1000 << " (ms)";
+             << "FPS: " << frameCount << "    "
+             << "Frame Time: " << frameTime * 1000 << " (ms)";
 
         SetWindowText(window->Id(), text.str().c_str());
 
@@ -222,7 +222,7 @@ float Engine::FrameTime()
         totalTime -= 1.0f;
     }
 #endif
-    // ------ END DEBUG ----------- 
+    // ------ END DEBUG -----------
 
     return frameTime;
 }
