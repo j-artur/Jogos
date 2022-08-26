@@ -1,6 +1,6 @@
 /**********************************************************************************
 // D3DBreakout (Código Fonte)
-// 
+//
 // Criação:     26 Mar 2012
 // Atualização: 18 Ago 2021
 // Compilador:  Visual C++ 2019
@@ -9,17 +9,17 @@
 //
 **********************************************************************************/
 
-#include "Engine.h"
 #include "Breakout.h"
-#include "Resources.h"
-#include "Player.h"
-#include "Block.h"
 #include "Ball.h"
+#include "Block.h"
+#include "Engine.h"
+#include "Player.h"
+#include "Resources.h"
 
 // ------------------------------------------------------------------------------
 // Inicialização de membros estáticos da classe
 
-Scene * Breakout::scene = nullptr;
+Scene *Breakout::scene = nullptr;
 
 // ------------------------------------------------------------------------------
 
@@ -37,7 +37,7 @@ void Breakout::Init()
     tile3 = new Image("Resources/Tile3.png");
     tile4 = new Image("Resources/Tile4.png");
     tile5 = new Image("Resources/Tile5.png");
-    
+
     // -----------------------------------------
     // posição dos blocos
 
@@ -48,9 +48,19 @@ void Breakout::Init()
     float line5 = 170.0f;
 
     // -----------------------------------------
-    // linha 1 de blocos    
 
-    Block * block;
+    Player *player = new Player();
+    player->MoveTo(window->Width() / 2 - player->Width() / 2, window->Height() - player->Height());
+    scene->Add(player);
+
+    Ball *ball = new Ball(player);
+    ball->MoveTo(player->x + player->Width() / 2 - ball->Width() / 2, player->y - ball->Height());
+    scene->Add(ball);
+
+    // -----------------------------------------
+    // linha 1 de blocos
+
+    Block *block;
     block = new Block(tile1);
     block->MoveTo(window->CenterX() - 350.0f, line1);
     scene->Add(block);
@@ -88,7 +98,7 @@ void Breakout::Init()
     scene->Add(block);
 
     // -----------------------------------------
-    // linha 2 de blocos    
+    // linha 2 de blocos
 
     block = new Block(tile2);
     block->MoveTo(window->CenterX() - 350.0f, line2);
@@ -127,12 +137,12 @@ void Breakout::Init()
     scene->Add(block);
 
     // -----------------------------------------
-    // linha 3 de blocos    
+    // linha 3 de blocos
 
     block = new Block(tile3);
     block->MoveTo(window->CenterX() - 350.0f, line3);
-    scene->Add(block); 
-    
+    scene->Add(block);
+
     block = new Block(tile3);
     block->MoveTo(window->CenterX() - 270.0f, line3);
     scene->Add(block);
@@ -166,7 +176,7 @@ void Breakout::Init()
     scene->Add(block);
 
     // -----------------------------------------
-    // linha 4 de blocos    
+    // linha 4 de blocos
 
     block = new Block(tile4);
     block->MoveTo(window->CenterX() - 350.0f, line4);
@@ -205,7 +215,7 @@ void Breakout::Init()
     scene->Add(block);
 
     // -----------------------------------------
-    // linha 5 de blocos    
+    // linha 5 de blocos
 
     block = new Block(tile5);
     block->MoveTo(window->CenterX() - 350.0f, line5);
@@ -254,7 +264,7 @@ void Breakout::Update()
 
     // atualiza objetos da cena
     scene->Update();
-} 
+}
 
 // ------------------------------------------------------------------------------
 
@@ -263,7 +273,7 @@ void Breakout::Draw()
     // desenha cena
     backg->Draw(0.0f, 0.0f, Layer::BACK);
     scene->Draw();
-} 
+}
 
 // ------------------------------------------------------------------------------
 
@@ -283,12 +293,13 @@ void Breakout::Finalize()
 }
 
 // ------------------------------------------------------------------------------
-//                                  WinMain                                      
+//                                  WinMain
 // ------------------------------------------------------------------------------
 
-int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
+int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine,
+                     _In_ int nCmdShow)
 {
-    Engine * engine = new Engine();
+    Engine *engine = new Engine();
 
     // configura a janela
     engine->window->Mode(WINDOWED);
@@ -299,8 +310,8 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     engine->window->Cursor(IDC_CURSOR);
 
     // configura dispositivo gráfico
-    //engine->graphics->VSync(true);
-    
+    // engine->graphics->VSync(true);
+
     // inicia jogo
     int status = engine->Start(new Breakout());
 
@@ -309,4 +320,3 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 }
 
 // ----------------------------------------------------------------------------
-
