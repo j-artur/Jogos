@@ -25,6 +25,7 @@ class Block : public Object
 {
 private:
     Sprite * sprite;            // sprite do bloco
+	bool falling;
 
 public:
     float velX;                 // velocidade horizontal
@@ -32,6 +33,9 @@ public:
 
     Block(Image * img);         // construtor
     ~Block();                   // destrutor
+
+	const bool & isFalling = falling;
+	void Drop() { falling = true; velY = 200.0f; }
 
     void Update();              // atualização do objeto
     void Draw();                // desenho do objeto

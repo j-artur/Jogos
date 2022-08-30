@@ -55,11 +55,16 @@ Ball::~Ball()
 void Ball::OnCollision(Object * obj)
 {
     // bola colide com bloco
-    if (obj->Type() == BLOCK)
-        Breakout::scene->Delete(obj, STATIC);
-
-    // experimente deixar o bloco cair em vez de removê-lo da cena
-        //((Block*) obj)->velY = 200.0f;
+	if (obj->Type() == BLOCK && !((Block*)obj)->isFalling) {
+		((Block*) obj)->Drop();
+		Rect* block = (Rect*)obj->BBox();
+		Rect* ball = (Rect*)BBox();
+		
+		if (ball->Right() > block->Left() && ball->Left() < block->Left() || ball->Left() < block->Right() && ball->Right() > block->Right())
+			velX = -velX;
+		if (ball->Bottom() > block->Top() && ball->Top() < block->Top() || ball->Top() < block->Bottom() && ball->Bottom() > block->Bottom())
+			velY = -velY;
+	}
 }
 
 // ---------------------------------------------------------------------------------

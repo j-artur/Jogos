@@ -28,6 +28,8 @@ Block::Block(Image * img)
 
     // tipo do objeto
     type = BLOCK;
+
+	falling = false;
 }
 
 // ---------------------------------------------------------------------------------

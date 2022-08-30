@@ -73,8 +73,17 @@ void Player::OnCollision(Object * obj)
     // bola colidiu com o player
     if (obj->Type() == BALL)
     {
-        Ball * ball = (Ball*) obj;
-        ball->velY = -ball->velY;
+        Ball * ballObj = (Ball*) obj;
+
+		Rect* block = (Rect*)BBox();
+		Rect* ball = (Rect*)obj->BBox();
+
+		if (ball->Right() > block->Left() && ball->Left() < block->Left() || ball->Left() < block->Right() && ball->Right() > block->Right())
+			ballObj->velX = -ballObj->velX;
+		if (ball->Bottom() > block->Top() && ball->Top() < block->Top() || ball->Top() < block->Bottom() && ball->Bottom() > block->Bottom())
+			ballObj->velY = -ballObj->velY;
+
+
     }    
 }
 
