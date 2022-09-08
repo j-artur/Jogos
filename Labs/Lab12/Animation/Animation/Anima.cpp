@@ -1,6 +1,6 @@
 /**********************************************************************************
 // Animation
-// 
+//
 // Criação:     10 Abr 2012
 // Atualização: 27 Ago 2021
 // Compilador:  Visual C++ 2019
@@ -9,38 +9,68 @@
 //
 **********************************************************************************/
 
+#include "Animation.h"
 #include "Engine.h"
 #include "Game.h"
-#include "TileSet.h"
-#include "Animation.h"
+#include "Object.h"
 #include "Resources.h"
-
 #include "Sprite.h"
+#include "TileSet.h"
 
 // ------------------------------------------------------------------------------
 
-class Anima : public Game
+class Pikachu : public Object
 {
-private:
-    Sprite * sprite = nullptr;          // sprite de fundo
-    TileSet * explosion = nullptr;      // folha de sprites da explosão
-    Animation * anim = nullptr;         // animação da explosão
-    
+  private:
+    TileSet *tileset = nullptr;
+    Animation *anim = nullptr;
 
-public:
-    void Init();                        // inicializa jogo
-    void Update();                      // atualiza lógica do jogo
-    void Draw();                        // desenha jogo
-    void Finalize();                    // finaliza jogo
+  public:
+    Pikachu(float animDelay)
+    {
+        tileset = new TileSet("Resources/pikachu.png", 220, 188, 5, 17);
+        anim = new Animation(tileset, animDelay, true);
+    }
+
+    ~Pikachu()
+    {
+        delete anim;
+        delete tileset;
+    }
+
+    void Update()
+    {
+        anim->NextFrame();
+    }
+
+    void Draw()
+    {
+        anim->Draw(x, y);
+    }
 };
 
 // -----------------------------------------------------------------------------
 
-void Anima::Init() 
+class Anima : public Game
 {
-    sprite = new Sprite("Resources/Background.jpg");
-    explosion = new TileSet("Resources/Explosion.png", 192, 192, 5, 10);
-    anim = new Animation(explosion, 0.120f, true);    
+  private:
+    Sprite *sprite = nullptr;   // sprite de fundo
+    Pikachu *pikachu = nullptr; // objeto pikachu
+
+  public:
+    void Init();     // inicializa jogo
+    void Update();   // atualiza lógica do jogo
+    void Draw();     // desenha jogo
+    void Finalize(); // finaliza jogo
+};
+
+// -----------------------------------------------------------------------------
+
+void Anima::Init()
+{
+    sprite = new Sprite("Resources/background.png");
+    pikachu = new Pikachu(0.120f);
+    pikachu->MoveTo(window->CenterX() + 130.0f, window->CenterY() + 40.0f);
 }
 
 // ------------------------------------------------------------------------------
@@ -51,36 +81,34 @@ void Anima::Update()
     if (window->KeyDown(VK_ESCAPE))
         window->Close();
 
-    // atualiza animação
-    anim->NextFrame();
-} 
+    // atualiza pikachu
+    pikachu->Update();
+}
 
 // ------------------------------------------------------------------------------
 
 void Anima::Draw()
 {
     sprite->Draw(window->CenterX(), window->CenterY(), Layer::BACK);
-    anim->Draw(window->CenterX(), window->CenterY() - 140.0f);    
-} 
+    pikachu->Draw();
+}
 
 // ------------------------------------------------------------------------------
 
 void Anima::Finalize()
 {
     delete sprite;
-    delete explosion;
-    delete anim;
+    delete pikachu;
 }
 
-
 // ------------------------------------------------------------------------------
-//                                  WinMain                                      
+//                                  WinMain
 // ------------------------------------------------------------------------------
 
-int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
-                     _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
+int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine,
+                     _In_ int nCmdShow)
 {
-    Engine * engine = new Engine();
+    Engine *engine = new Engine();
 
     // configura janela
     engine->window->Mode(WINDOWED);
@@ -90,8 +118,8 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     engine->window->Icon(IDI_ICON);
 
     // configura dispositivo gráfico
-    //engine->graphics->VSync(true);
-    
+    // engine->graphics->VSync(true);
+
     // inicia o jogo
     int status = engine->Start(new Anima());
 
@@ -100,4 +128,3 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 }
 
 // ----------------------------------------------------------------------------
-
