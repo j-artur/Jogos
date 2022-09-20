@@ -24,6 +24,7 @@ private:
     Font   * consolas = nullptr;
     Font   * courier  = nullptr;
     Font   * verdana  = nullptr;
+	Font  * jetBrains = nullptr;
     
 public:
     void Init();
@@ -48,9 +49,12 @@ void FontDemo::Init()
     courier->Spacing("Resources/courier12.dat");
     //courier->Spacing(12);
 
-    verdana  = new Font("Resources/verdana12.png");
-    verdana->Spacing("Resources/verdana12.dat");
-    //verdana->Spacing(12);
+	verdana = new Font("Resources/verdana12.png");
+	verdana->Spacing("Resources/verdana12.dat");
+	//verdana->Spacing(12);
+
+	jetBrains = new Font("Resources/jetbrains.png");
+	jetBrains->Spacing("Resources/jetbrains.dat");
 }
 
 // ------------------------------------------------------------------------------
@@ -69,26 +73,16 @@ void FontDemo::Draw()
     // desenha background
     backg->Draw(window->CenterX(), window->CenterY());
 
-    Color black (0.0f, 0.0f, 0.0f, 1.0f);
+	Color black (0.0f, 0.0f, 0.0f, 1.0f);
     Color blue  (0.2f, 0.2f, 1.0f, 1.0f);
     Color red   (1.0f, 0.2f, 0.2f, 1.0f);
     Color green (0.1f, 0.6f, 0.1f, 1.0f);
 
-    // desenha o mesmo texto com várias fontes diferentes 
-    consolas->Draw(60, 45, "Consolas 12", blue);
-    consolas->Draw(60, 75, "Esta é a fonte Consolas 12 pontos", black);
-    consolas->Draw(60, 105, "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", black);
-    consolas->Draw(60, 135, "abcdefghijklmnopqrstuvwxyz!@#$%&*(+^~çáêôüã", black);
-
-    courier->Draw(60, 195, "Courier 12", red);
-    courier->Draw(60, 225, "Esta é a fonte Courier 12 pontos", black);
-    courier->Draw(60, 255, "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", black);
-    courier->Draw(60, 285, "abcdefghijklmnopqrstuvwxyz!@#$%&*(+^~çáêôüã", black);
-
-    verdana->Draw(60, 345, "Verdana 12", green);
-    verdana->Draw(60, 375, "Esta é a fonte Verdana 12 pontos", black);
-    verdana->Draw(60, 405, "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", black);
-    verdana->Draw(60, 435, "abcdefghijklmnopqrstuvwxyz!@#$%&*(+^~çáêôüã", black);
+	jetBrains->Draw(60, 40, "JetBrains Mono", black, Layer::FRONT, 1.5f);
+	
+	jetBrains->Draw(200, 240, "JetBrains Mono", red, Layer::FRONT, 0.5f, -30.0f);
+	jetBrains->Draw(300, 260, "JetBrains Mono", blue, Layer::FRONT, 0.75f, 45.0f);
+	jetBrains->Draw(60, 440, "JetBrains Mono", green, Layer::FRONT, 1.0f, -90.0f);
 } 
 
 // ------------------------------------------------------------------------------
