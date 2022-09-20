@@ -16,6 +16,7 @@
 // -----------------------------------------------------------------------------
 
 Scene * Platformer::scene = nullptr;
+Audio* Platformer::audio = nullptr;
 
 // -----------------------------------------------------------------------------
 
@@ -31,6 +32,14 @@ void Platformer::Init()
     // cria jogador
     player = new Player();
     scene->Add(player, MOVING);
+
+	// cria sistema de áudio
+	audio = new Audio();
+	audio->Add(MUSIC, "Resources/Music.wav");
+	audio->Add(TRANSITION, "Resources/Transition.wav");
+
+	// toca música
+	audio->Play(MUSIC);
 
     // cria plataformas
     const int MaxPlat = 12;
@@ -89,6 +98,7 @@ void Platformer::Draw()
 void Platformer::Finalize()
 {
     delete scene;
+	delete audio;
 }
 
 

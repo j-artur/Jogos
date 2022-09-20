@@ -10,6 +10,7 @@
 **********************************************************************************/
 
 #include "Player.h"
+#include "Platformer.h"
 
 // ---------------------------------------------------------------------------------
 
@@ -67,6 +68,9 @@ void Player::OnCollision(Object * obj)
     {
         keyCtrl = false;
         gravity = !gravity;
+
+		// toca efeito sonoro
+		Platformer::audio->Play(TRANSITION);
 
         // tira player da plataforma para evitar 
         // detecção de colisão no quadro seguinte

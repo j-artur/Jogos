@@ -20,7 +20,9 @@
 #include "Platform.h"
 #include "Background.h"
 #include "Player.h"
+#include "Audio.h"
 
+enum { MUSIC, TRANSITION };
 // ------------------------------------------------------------------------------
 
 class Platformer : public Game
@@ -31,6 +33,7 @@ private:
 
 public:
     static Scene * scene;           // gerenciador de cena
+	static Audio* audio;            // sistema de áudio
 
     void Init();                    // inicialização
     void Update();                  // atualização
