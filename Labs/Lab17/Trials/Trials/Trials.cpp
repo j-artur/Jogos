@@ -60,33 +60,54 @@ void Trials::Update()
     // atualiza objeto mouse
     mouse->Update();
 
-    // destaca item selecionado
-    for (int i = 0; i < MaxItens; ++i)
-    {
-        if (scene->Collision(mouse, menu[i]))
-        {
-            menu[i]->Select();
+	if (followMode)
+	{
+		selected->MoveTo(window->MouseX(), window->MouseY());
 
-            if (mouse->Clicked())
-            {
-                switch (menu[i]->Type())
-                {
-                case SINGLE:
-                case MULTI:
-                case TRACKS:
-                case LEADERBOARD:
-                case OPTIONS: break;
-                case EXIT: window->Close(); break;
-                }
-            }
-        }
-        else
-        {
-            menu[i]->UnSelect();
-        }
+		if (mouse->Clicked())
+			followMode = false;
+	}
+	else
+	{
+		// destaca item selecionado
+		for (int i = 0; i < MaxItens; ++i)
+		{
+			if (scene->Collision(mouse, menu[i]))
+			{
+				menu[i]->Select();
+				selected = menu[i];
 
-        menu[i]->Update();
-    }
+				if (mouse->Clicked())
+				{
+					if (editMode)
+					{
+						followMode = true;
+					}
+					else
+					{
+						switch (menu[i]->Type())
+						{
+						case SINGLE:
+						case MULTI:
+						case TRACKS:
+						case LEADERBOARD:
+						case OPTIONS: break;
+						case EXIT: window->Close(); break;
+						}
+					}
+				}
+			}
+			else
+			{
+				menu[i]->UnSelect();
+			}
+
+			menu[i]->Update();
+		}
+	}
+
+	if (window->KeyPress('E'))
+		editMode = !editMode;
 
     // habilita/desabilita bounding box
     if (window->KeyPress('B'))
