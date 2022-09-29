@@ -32,6 +32,7 @@ private:
     Animation * anim;                   // animação do personagem
     uint      gravity;                  // gravidade atuando sobre o jogador
     bool      keyCtrl;                  // controle do pressionamento da barra de espaço
+	float     freq;
 
 public:
     Player();                           // construtor

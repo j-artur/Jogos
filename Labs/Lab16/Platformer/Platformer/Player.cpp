@@ -35,6 +35,7 @@ Player::Player()
     // inicializa estado do player
     gravity = NORMAL;
     keyCtrl = false;    
+	freq = 1.0f;
 
     // posição inicial
     MoveTo(window->CenterX(), 24.0f, Layer::FRONT);
@@ -92,10 +93,23 @@ void Player::Update()
     // ----------------------------------------------------
     // ação da gravidade sobre o personagem
     // ----------------------------------------------------
-    if (gravity == NORMAL)    
-        Translate(0, 300 * gameTime);
-    else
+	if (gravity == NORMAL)
+	{
+		Translate(0, 300 * gameTime);
+		freq += 0.25f * gameTime;
+	}
+	else
+	{
         Translate(0, -300 * gameTime);
+		freq -= 0.25f * gameTime;
+	}
+
+	if (freq > 1.1f)
+		freq = 1.1f;
+	if (freq < 0.9f)
+		freq = 0.9f;
+
+	Platformer::audio->Frequency(MUSIC, freq);
 
     // atualiza animação
     anim->Select(gravity);
