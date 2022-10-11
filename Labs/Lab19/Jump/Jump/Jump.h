@@ -39,6 +39,7 @@ private:
     Sprite * dot = nullptr;             // sprite de um ponto
     TileSet * braidSet = nullptr;       // folha de sprites do personagem
     Animation * anim = nullptr;         // animação do pulo
+	Controller* controller = nullptr;
     
     Timer jumpTimer;                    // controla tempo do pulo
     Timer dotTimer;                     // controla exibição do rastro

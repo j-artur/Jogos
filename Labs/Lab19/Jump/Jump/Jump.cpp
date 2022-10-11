@@ -20,6 +20,8 @@ void Jump::Init()
     braidSet = new TileSet("Resources/Braid.png", 120, 140, 9, 9);
     anim = new Animation(braidSet, 0.250f, false);
     dot = new Sprite("Resources/Dot.png");
+	controller = new Controller();
+	controller->Initialize();
 
     // posição inicial do personagem
     posX = window->CenterX() - 100.0f;
@@ -62,22 +64,12 @@ void Jump::Update()
         {
             anim->NextFrame();
 
-            if (jumpTimer.Elapsed(1.0f))
-            {
-                // descida
-                velY = 100.0f;
-
-            }
-            else
-            {
-                // subida
-                velY = -100.0f;
-            }
+			velY += 200.0f * gameTime;
         }
     }
     else
     {
-         if (window->KeyPress(VK_SPACE))
+         if (window->KeyPress(VK_SPACE) || controller->ButtonDown(ButtonA))
         {
             // inicia pulo
             velX = 100;
@@ -95,6 +87,9 @@ void Jump::Update()
             dotTimer.Start();
             jumping = true;
         }
+
+		posX += controller->Axis(AxisX) * gameTime;
+		posY += controller->Axis(AxisY) * gameTime;
 
         if (window->KeyDown(VK_LEFT))
             posX -= 200 * gameTime;
