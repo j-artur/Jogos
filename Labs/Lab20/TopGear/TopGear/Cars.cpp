@@ -26,8 +26,10 @@ Cars::Cars()
     speed = 100;
 
     // --- ajuste a posição inicial do carro ---
+	MoveTo(window->CenterX(), 246.0f);
 
     // --- ajuste a escala inicial do carro ---
+	ScaleTo(0.1f);
 }
 
 // ---------------------------------------------------------------------------------
@@ -48,7 +50,7 @@ void Cars::Update()
     Translate(deltaX, deltaY);
 
     // --- aumente a escala de acordo com a distância percorrida ---
-    
+	ScaleTo(0.1f + 0.9f * (y - 246.0f) / (473.0f - 246.0f));
     
     // verifica a distância do carro para o início da pista
     if (y - 246 >= 500)
@@ -64,7 +66,7 @@ void Cars::Update()
 void Cars::Draw()
 {
     // --- desenha carro usando a escala definida ---
-
+	sprite->Draw(x, y, z, scale);
 }
 
 // -------------------------------------------------------------------------------
