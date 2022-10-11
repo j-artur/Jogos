@@ -96,7 +96,8 @@ void Plane::Update()
     if (window->KeyPress(VK_SPACE))
     {
         Vector2D::audio->Play(PULSE);
-        Vector2D::scene->Add(new Missile(this, missile), STATIC);
+		Vector2D::scene->Add(new Missile(this, Angle() - 10.0f, missile), STATIC);
+		Vector2D::scene->Add(new Missile(this, Angle() + 10.0f, missile), STATIC);
     }
 
     // -----------------
@@ -156,7 +157,8 @@ void Plane::Update()
         if (gamepad->ButtonPress(SHOOT))
         {
             Vector2D::audio->Play(PULSE);
-            Vector2D::scene->Add(new Missile(this, missile), STATIC);
+			Vector2D::scene->Add(new Missile(this, Angle() - 10.0f, missile), STATIC);
+			Vector2D::scene->Add(new Missile(this, Angle() + 10.0f, missile), STATIC);
         }
     }
 }

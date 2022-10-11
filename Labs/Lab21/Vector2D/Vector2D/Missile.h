@@ -29,7 +29,7 @@ public:
     Vector speed;                               // velocidade do míssil
 
 public:
-    Missile(Plane * plane, Image * img);        // construtor
+    Missile(Plane * plane, float angle, Image * img);        // construtor
     ~Missile();                                 // destrutor
 
     void Update();                              // atualização

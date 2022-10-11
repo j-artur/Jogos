@@ -14,20 +14,22 @@
 
 // ------------------------------------------------------------------------------
 
-Missile::Missile(Plane * plane, Image * img)
+Missile::Missile(Plane * plane, float angle, Image * img)
 {
     // inicializa sprite
     sprite = new Sprite(img);
 
     // inicializa vetor velocidade
-    speed.RotateTo(plane->Angle());
+    speed.RotateTo(angle);
     speed.ScaleTo(500);
-    
+
     // usa mesma rotação do avião
-    RotateTo(plane->Rotation());
+	RotateTo(90.0f - angle);
+
+	Vector dir = Vector(plane->Angle(), 50.0f);
     
     // move para posição
-    MoveTo(plane->X(), plane->Y());
+    MoveTo(plane->X() + dir.XComponent() , plane->Y() - dir.YComponent());
 }
 
 // ------------------------------------------------------------------------------
