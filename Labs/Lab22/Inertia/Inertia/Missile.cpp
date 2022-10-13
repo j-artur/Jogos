@@ -53,14 +53,34 @@ void Missile::Update()
     Translate(speed.XComponent() * deltaT, -speed.YComponent() * deltaT);
     
     // destrói míssil que saí da tela
-    if (X() > window->Width() || X() < 0 || Y() > window->Height() || Y() < 0)
-    {
-        Inertia::audio->Play(EXPLOSION);
-        Explosion * explo = new Explosion(Inertia::exploSet);
-        explo->MoveTo(x, y);
-        Inertia::scene->Add(explo, STATIC);
-        Inertia::scene->Delete();
-    }
+	if (X() > window->Width() || X() < 0 || Y() > window->Height() || Y() < 0)
+	{
+		if (rebound)
+		{
+			Inertia::audio->Play(EXPLOSION);
+			Explosion* explo = new Explosion(Inertia::exploSet);
+			explo->MoveTo(x, y);
+			Inertia::scene->Add(explo, STATIC);
+			Inertia::scene->Delete();
+		}
+		else
+		{
+			auto normal = Vector(0.0f, 2.0f * speed.Magnitude());
+			if (X() > window->Width())
+				normal.RotateTo(180.0f);
+			else if (X() < 0)
+				normal.RotateTo(0.0f);
+			else if (Y() > window->Height())
+				normal.RotateTo(90.0f);
+			else if (Y() < 0)
+				normal.RotateTo(270.0f);
+
+			speed.Add(normal);
+			Translate(speed.XComponent() * deltaT, -speed.YComponent() * deltaT);
+
+			rebound = true;
+		}
+	}
 }
 
 // -------------------------------------------------------------------------------

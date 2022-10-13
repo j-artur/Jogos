@@ -26,6 +26,7 @@ class Missile : public Object
 private:
     Sprite * sprite;                            // sprite do míssil
     Vector   speed;                             // velocidade do míssil
+	bool rebound = false;
     
 public:
     Missile(Ship * ship);                       // construtor
