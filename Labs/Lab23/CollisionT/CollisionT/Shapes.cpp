@@ -9,8 +9,8 @@
 //
 **********************************************************************************/
 
-#include "CollisionT.h"
 #include "Shapes.h"
+#include "CollisionT.h"
 
 // ---------------------------------------------------------------------------------
 
@@ -63,13 +63,10 @@ Plane::Plane()
 {
     sprite = new Sprite("Resources/Plane.png");
 
-    Point vertex[18] =
-    {
-        Point(-10,-41), Point(-4,-46), Point(4,-46), Point(10,-41), 
-        Point(10,-22), Point(65,-20), Point(65,-13), Point(7,6), 
-        Point(2,36), Point(18,41), Point(18,47), Point(-17,47), Point(-17,41), Point(-2,36), 
-        Point(-7,6), Point(-65,-13), Point(-65,-20), Point(-10,-22)
-    };
+    Point vertex[18] = {Point(-10, -41), Point(-4, -46),  Point(4, -46),  Point(10, -41), Point(10, -22),
+                        Point(65, -20),  Point(65, -13),  Point(7, 6),    Point(2, 36),   Point(18, 41),
+                        Point(18, 47),   Point(-17, 47),  Point(-17, 41), Point(-2, 36),  Point(-7, 6),
+                        Point(-65, -13), Point(-65, -20), Point(-10, -22)};
 
     BBox(new Poly(vertex, 18));
     MoveTo(726, 180);
@@ -86,12 +83,12 @@ Plane::~Plane()
 Hammer::Hammer()
 {
     sprite = new Sprite("Resources/Hammer.png");
-    
-    Mixed* mixed = new Mixed();
+
+    Mixed *mixed = new Mixed();
     mixed->Insert(new Rect(-28, -48, 26, -23));
     mixed->Insert(new Rect(-6, -50, 5, 48));
 
-    BBox(mixed);    
+    BBox(mixed);
     MoveTo(926, 180);
     type = HAMMER;
 }
@@ -151,7 +148,11 @@ Dot::~Dot()
 Bolt::Bolt()
 {
     sprite = new Sprite("Resources/Bolt.png");
-    BBox(new Rect(-29, -42, 35, 48));
+
+    Point vertexes[7] = {Point(-10.0f, -42.5f), Point(36.0f, -42.5f), Point(5.0f, -10.5f), Point(30.0f, -10.5f),
+                         Point(-22.5f, 49.0f),  Point(-11.0f, 4.0f),  Point(-29.0f, 4.0f)};
+
+    BBox(new Poly(vertexes, 7));
     MoveTo(726, 380);
     type = BOLT;
 }
@@ -166,9 +167,9 @@ Bolt::~Bolt()
 House::House()
 {
     sprite = new Sprite("Resources/House.png");
-    Point vertex[3] = { Point(-50,-4), Point(0,-42), Point(49,-4) };
+    Point vertex[3] = {Point(-50, -4), Point(0, -42), Point(49, -4)};
 
-    Mixed * mixed = new Mixed();
+    Mixed *mixed = new Mixed();
     mixed->Insert(new Rect(-42, -4, 41, 40));
     mixed->Insert(new Rect(20, -40, 32, -4));
     mixed->Insert(new Poly(vertex, 3));

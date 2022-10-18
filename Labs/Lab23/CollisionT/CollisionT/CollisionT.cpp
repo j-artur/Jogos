@@ -9,15 +9,15 @@
 //
 **********************************************************************************/
 
-#include "Engine.h"
 #include "CollisionT.h"
-#include "Shapes.h"
+#include "Engine.h"
 #include "Mouse.h"
+#include "Shapes.h"
 
 // ------------------------------------------------------------------------------
 
-Scene * CollisionT::scene = nullptr;            // cena do jogo
-int CollisionT::index = 0;                      // índice do vetor
+Scene *CollisionT::scene = nullptr; // cena do jogo
+int CollisionT::index = 0;          // índice do vetor
 
 // ------------------------------------------------------------------------------
 
@@ -29,7 +29,7 @@ void CollisionT::Init()
     bold = new Font("Resources/Tahoma14b.png");
     bold->Spacing("Resources/Tahoma14b.dat");
 
-    // carrega pano de fundo e painel sobreposto 
+    // carrega pano de fundo e painel sobreposto
     backg = new Sprite("Resources/Background.jpg");
     overlay = new Sprite("Resources/Overlay.png");
 
@@ -40,32 +40,32 @@ void CollisionT::Init()
     // cria objetos
     obj[0] = new Box();
     obj[1] = new Wheel();
-    obj[2] = new Drop(); 
-    obj[3] = new Plane(); 
-    obj[4] = new Hammer(); 
-    obj[5] = new Display(); 
+    obj[2] = new Drop();
+    obj[3] = new Plane();
+    obj[4] = new Hammer();
+    obj[5] = new Display();
     obj[6] = new Ball();
     obj[7] = new Dot();
-    obj[8] = new Bolt(); 
+    obj[8] = new Bolt();
     obj[9] = new House();
 
     // guarda posição inicial dos objetos
-    pos[0] = { 226, 180 };
-    pos[1] = { 426, 180 };
-    pos[2] = { 576, 180 };
-    pos[3] = { 726, 180 };
-    pos[4] = { 926, 180 };
-    pos[5] = { 226, 380 };
-    pos[6] = { 426, 380 };
-    pos[7] = { 576, 380 };
-    pos[8] = { 726, 380 };
-    pos[9] = { 926, 380 };
+    pos[0] = {226, 180};
+    pos[1] = {426, 180};
+    pos[2] = {576, 180};
+    pos[3] = {726, 180};
+    pos[4] = {926, 180};
+    pos[5] = {226, 380};
+    pos[6] = {426, 380};
+    pos[7] = {576, 380};
+    pos[8] = {726, 380};
+    pos[9] = {926, 380};
 
     // cria cena do jogo
     scene = new Scene();
 
     // adiciona objetos na cena
-    for (const auto & elem : obj)
+    for (const auto &elem : obj)
         scene->Add(elem, MOVING);
 
     // adiciona mouse na cena
@@ -139,14 +139,14 @@ void CollisionT::Draw()
     scene->Draw();
 
     // define cor dos textos
-    Color textColor{ 0.65f, 0.65f, 0.65f, 1.0f };
-    Color boldColor{ 0.55f, 0.55f, 0.55f, 1.0f };
+    Color textColor{0.65f, 0.65f, 0.65f, 1.0f};
+    Color boldColor{0.55f, 0.55f, 0.55f, 1.0f};
 
     // desenha valores de posição, escala e rotação
     text.str("");
     text << "Escala: " << int(obj[index]->Scale() * 100) << "%";
     font->Draw(window->CenterX() - 155, 22.0f, text.str(), textColor);
-    
+
     text.str("");
     text << "Posição: " << int(obj[index]->X()) << " x " << int(obj[index]->Y());
     font->Draw(window->CenterX() - 35, 22.0f, text.str(), textColor);
@@ -157,8 +157,8 @@ void CollisionT::Draw()
 
     // desenha nomes dos objetos
     font->Draw(pos[0].x + 2, 260, "Caixa", textColor);
-    font->Draw(pos[1].x + 3, 260, "Roda", textColor); 
-    font->Draw(pos[2].x + 4, 260, "Gota", textColor); 
+    font->Draw(pos[1].x + 3, 260, "Roda", textColor);
+    font->Draw(pos[2].x + 4, 260, "Gota", textColor);
     font->Draw(pos[3].x + 2, 260, "Avião", textColor);
     font->Draw(pos[4].x - 4, 260, "Marreta", textColor);
 
@@ -171,16 +171,36 @@ void CollisionT::Draw()
     // desenha nome do objeto selecionado
     switch (index)
     {
-    case BOX:     bold->Draw(window->CenterX() + 0, 49, "Caixa", boldColor);   break;
-    case WHEEL:   bold->Draw(window->CenterX() + 1, 49, "Roda", boldColor);    break;
-    case DROP:    bold->Draw(window->CenterX() + 2, 49, "Gota", boldColor);    break;
-    case PLANE:   bold->Draw(window->CenterX() + 0, 49, "Avião", boldColor);   break;
-    case HAMMER:  bold->Draw(window->CenterX() - 6, 49, "Marreta", boldColor); break;
-    case DISPLAY: bold->Draw(window->CenterX() - 5, 49, "Monitor", boldColor); break;
-    case BALL:    bold->Draw(window->CenterX() + 3, 49, "Bola", boldColor);    break;
-    case DOT:     bold->Draw(window->CenterX() - 1, 49, "Ponto", boldColor);   break;
-    case BOLT:    bold->Draw(window->CenterX() + 3, 49, "Raio", boldColor);    break;
-    case HOUSE:   bold->Draw(window->CenterX() + 2, 49, "Casa", boldColor);    break;
+    case BOX:
+        bold->Draw(window->CenterX() + 0, 49, "Caixa", boldColor);
+        break;
+    case WHEEL:
+        bold->Draw(window->CenterX() + 1, 49, "Roda", boldColor);
+        break;
+    case DROP:
+        bold->Draw(window->CenterX() + 2, 49, "Gota", boldColor);
+        break;
+    case PLANE:
+        bold->Draw(window->CenterX() + 0, 49, "Avião", boldColor);
+        break;
+    case HAMMER:
+        bold->Draw(window->CenterX() - 6, 49, "Marreta", boldColor);
+        break;
+    case DISPLAY:
+        bold->Draw(window->CenterX() - 5, 49, "Monitor", boldColor);
+        break;
+    case BALL:
+        bold->Draw(window->CenterX() + 3, 49, "Bola", boldColor);
+        break;
+    case DOT:
+        bold->Draw(window->CenterX() - 1, 49, "Ponto", boldColor);
+        break;
+    case BOLT:
+        bold->Draw(window->CenterX() + 3, 49, "Raio", boldColor);
+        break;
+    case HOUSE:
+        bold->Draw(window->CenterX() + 2, 49, "Casa", boldColor);
+        break;
     }
 
     // desenha mapeamento de teclas e suas funções
@@ -192,12 +212,12 @@ void CollisionT::Draw()
     font->Draw(window->CenterX() + 191.0f, posY, "Escala      A | S", textColor);
     font->Draw(window->CenterX() + 301.0f, posY, "Rotação      Z | X", textColor);
 
-    //desenha posição do mouse
+    // desenha posição do mouse
     text.str("");
     text << int(window->MouseX()) << " x " << int(window->MouseY());
     font->Draw(52, posY, text.str(), textColor);
 
-    //desenha caixa de seleção animada
+    // desenha caixa de seleção animada
     select->Draw(pos[index].x, pos[index].y + 72);
 
     // desenha bounding box dos objetos
@@ -219,13 +239,13 @@ void CollisionT::Finalize()
 }
 
 // ------------------------------------------------------------------------------
-//                                  WinMain                                      
+//                                  WinMain
 // ------------------------------------------------------------------------------
 
-int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
-                     _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
+int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine,
+                     _In_ int nCmdShow)
 {
-    Engine* engine = new Engine();
+    Engine *engine = new Engine();
 
     // configura motor
     engine->window->Mode(WINDOWED);
@@ -234,7 +254,7 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
     engine->window->Title("Teste de Colisão");
     engine->window->Icon(IDI_ICON);
     engine->window->Cursor(IDC_CURSOR);
-    //engine->graphics->VSync(true);
+    engine->graphics->VSync(true);
 
     // inicia o jogo
     int status = engine->Start(new CollisionT());
@@ -244,5 +264,3 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 }
 
 // ----------------------------------------------------------------------------
-
-
