@@ -28,7 +28,8 @@ using Rnd = std::uniform_real_distribution<float>;
 class Fireworks : public Object
 {
 private:
-    Particles * starGen;            // sistema de partículas
+    Particles * orange;            // sistema de partículas
+	Particles* yellow;            // sistema de partículas
     random_device rd;               // gerador de número aleatório
     mt19937 mt{ rd() };             // gerador mersenne twister
     Rnd RandAngle{ 0.0f, 359.0f };  // ângulo aleatório
@@ -46,10 +47,7 @@ public:
 // ---------------------------------------------------------------------------------
 
 inline int Fireworks::Size()
-{ return starGen->Size(); }
-
-inline void Fireworks::Draw()
-{ starGen->Draw(Layer::MIDDLE, 0.0f); }
+{ return orange->Size(); }
 
 // ---------------------------------------------------------------------------------
 

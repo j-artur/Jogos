@@ -16,25 +16,39 @@
 
 Debris::Debris(float posX, float posY)
 {
-    anim = new Animation(Asteroids::debriSet, 0.060f, false);
-    MoveTo(posX, posY);
+	Generator gen;
+	gen.imgFile = "Resources/Particle.png";
+	gen.angle = 0.f;
+	gen.spread = 360.f;
+	gen.lifetime = 1.5f;
+	gen.frequency = 0.f;
+	gen.percentToDim = 0.6f;
+	gen.minSpeed = 40.f;
+	gen.maxSpeed = 80.f;
+	gen.color.r = 1.f;
+	gen.color.g = 1.f;
+	gen.color.b = 1.f;
+	gen.color.a = 1.f;
+
+	death = new Particles(gen);
+	death->Generate(posX, posY, 30);
 }
 
 // ---------------------------------------------------------------------------------
 
 Debris::~Debris()
 {
-    delete anim;
+    delete death;
 }
 
 // ---------------------------------------------------------------------------------
 
 void Debris::Update()
 {
-    anim->NextFrame();
+	death->Update(gameTime);
 
-    if (anim->Inactive())
-        Asteroids::scene->Delete();    
+    if (death->Inactive())
+        Asteroids::scene->Delete();
 }
 
 // ---------------------------------------------------------------------------------

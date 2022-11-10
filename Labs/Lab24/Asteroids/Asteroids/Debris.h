@@ -18,13 +18,14 @@
 #include "Types.h"                          // tipos específicos da engine
 #include "Object.h"                         // objetos do jogo
 #include "Animation.h"                      // animação de sprites
+#include "Particles.h"
 
 // ---------------------------------------------------------------------------------
 
 class Debris : public Object
 {
 private:
-    Animation * anim;                       // animação
+	Particles* death;
 
 public:
     Debris(float posX, float posY);         // construtor
@@ -38,7 +39,7 @@ public:
 // Função Membro Inline
 
 inline void Debris::Draw()
-{ anim->Draw(x, y, Layer::MIDDLE); }
+{ death->Draw(Layer::UPPER); }
 
 // ---------------------------------------------------------------------------------
 
